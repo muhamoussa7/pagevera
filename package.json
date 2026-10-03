@@ -1,5 +1,5 @@
 {
-  "name": "page-to-pdf",
+  "name": "pagevera",
   "version": "1.0.0",
   "private": true,
   "description": "Chrome extension that saves pages as vector PDFs without the print dialog.",
@@ -10,7 +10,7 @@
     "test:unit": "node --test tests/unit/*.test.mjs",
     "test:e2e": "node --test --test-concurrency=1 tests/e2e.test.mjs",
     "test": "npm run test:unit && npm run test:e2e",
-    "package": "rm -f page-to-pdf.zip && zip -qr page-to-pdf.zip manifest.json background.js offscreen.html offscreen.js popup.html popup.css popup.js lib content icons && echo page-to-pdf.zip"
+    "package": "rm -f pagevera.zip && zip -qr pagevera.zip manifest.json background.js offscreen.html offscreen.js popup.html popup.css popup.js lib content icons && echo pagevera.zip"
   },
   "devDependencies": {
     "playwright-core": "1.63.0"

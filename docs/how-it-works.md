@@ -1,6 +1,6 @@
 # How it works
 
-The technical side of [Page to PDF](../README.md): how a save works, what Chrome's PDF engine can and can't do, and how to run the tests.
+The technical side of [PageVera](../README.md): how a save works, what Chrome's PDF engine can and can't do, and how to run the tests.
 
 ## The save pipeline
 

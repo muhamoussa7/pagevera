@@ -123,7 +123,7 @@ async function startJob(tabId) {
       message: cancelled ? 'Cancelled' : e?.message || String(e),
       code: e?.code,
     });
-    if (!EXPECTED_CODES.has(e?.code)) console.error('Page to PDF failed:', e);
+    if (!EXPECTED_CODES.has(e?.code)) console.error('PageVera failed:', e);
   }
 }
 

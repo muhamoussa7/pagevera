@@ -1,6 +1,6 @@
-# Page to PDF
+# PageVera: save any web page as a clean PDF
 
-A Chrome extension that saves any web page as a clean, high-quality PDF in one click. Navigation bars, sidebars, cookie banners and chat bubbles are left out. The text stays real text you can search and copy, and the images keep their original resolution.
+PageVera is a Chrome extension that saves any web page as a clean, high-quality PDF in one click. The name joins "page" with "vera", Latin for true, because the PDF stays true to the original page. Navigation bars, sidebars, cookie banners and chat bubbles are left out. The text stays real text you can search and copy, and the images keep their original resolution.
 
 ![A web page with a header, sidebar, cookie banner and chat bubble, next to the PDF the extension made from it, which has only the article](docs/images/before-after.png)
 
@@ -97,7 +97,7 @@ Requires Chrome 125 or newer.
 1. Download this repository (**Code** > **Download ZIP**, then unzip it) or clone it.
 2. Open `chrome://extensions`.
 3. Turn on **Developer mode** (top right).
-4. Click **Load unpacked** and choose the `page-to-pdf` folder.
+4. Click **Load unpacked** and choose the downloaded folder (`pagevera-main` if you used Download ZIP).
 5. Optional: pin the extension from the puzzle-piece menu so the button is always visible.
 
 To save local `file://` pages, open the extension's **Details** and turn on **Allow access to file URLs**.
@@ -110,7 +110,7 @@ Then click the toolbar button and choose **Save as PDF**.
 - Right-click a page and choose **Save page as PDF**.
 - **Pick what to remove first…** puts a toolbar on the page. Hover to highlight an element, click to remove it, ↑/↓ to select the parent or child, Backspace or ⌘Z to undo, Enter to save, Esc to cancel. **Show automatic removals** outlines what the Remove toggles would take out; click an outline to keep that element. After saving, the removed elements stay hidden until you click **Restore page** or reload, so you can adjust and save again.
 
-While a PDF is being made, Chrome shows a "Page to PDF started debugging this browser" bar for a few seconds. It disappears when the save finishes. Clicking its Cancel button stops the save. To hide the bar permanently, start Chrome with `--silent-debugger-extension-api`.
+While a PDF is being made, Chrome shows a "PageVera started debugging this browser" bar for a few seconds. It disappears when the save finishes. Clicking its Cancel button stops the save. To hide the bar permanently, start Chrome with `--silent-debugger-extension-api`.
 
 ## Settings
 

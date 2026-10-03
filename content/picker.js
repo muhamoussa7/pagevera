@@ -282,7 +282,7 @@
     try {
       items = globalThis.__p2p?.detect(settings) || [];
     } catch (e) {
-      console.warn('Page to PDF preview failed', e);
+      console.warn('PageVera preview failed', e);
     }
     preview = items.map(({ el, reason }) => {
       const box = document.createElement('div');

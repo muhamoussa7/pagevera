@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Page to PDF",
+  "name": "PageVera",
   "version": "1.0.0",
   "description": "Save any page as a vector PDF in one click. Text stays text, images keep full resolution, with options to remove navigation and load the whole page first.",
   "minimum_chrome_version": "125",
