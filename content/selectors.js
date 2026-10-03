@@ -174,6 +174,48 @@ globalThis.__p2pSelectors = {
     '[aria-roledescription="slide"]',
   ],
 
+  // Where to look for carousels whose slides should all print.
+  carouselRoots: [
+    '[class*="carousel" i]',
+    '[class*="slider" i]',
+    '[class*="slideshow" i]',
+    '[class*="swiper" i]',
+    '[class*="slick" i]',
+    '[class*="splide" i]',
+    '[class*="glide" i]',
+    '[class*="flickity" i]',
+    '[class*="embla" i]',
+    '[class*="keen-slider" i]',
+    '[class*="tns-" i]',
+    '[class*="gallery" i]',
+    '[aria-roledescription="carousel" i]',
+    '[aria-roledescription="slide" i]',
+  ],
+
+  // Arrows, dots and counters of the common carousel libraries.
+  carouselControls: [
+    '.swiper-button-prev',
+    '.swiper-button-next',
+    '.swiper-pagination',
+    '.swiper-scrollbar',
+    '.slick-arrow',
+    '.slick-dots',
+    '.splide__arrows',
+    '.splide__pagination',
+    '.splide__toggle',
+    '.glide__arrows',
+    '.glide__bullets',
+    '.carousel-indicators',
+    '.carousel-control-prev',
+    '.carousel-control-next',
+    '.flickity-button',
+    '.flickity-page-dots',
+    '.owl-nav',
+    '.owl-dots',
+    '.tns-controls',
+    '.tns-nav',
+  ],
+
   // Menus, tooltips and dialogs keep their hidden state.
   transient: [
     'nav',
@@ -197,7 +239,9 @@ globalThis.__p2pSelectors = {
     'data-ll-src',
     'data-hi-res-src',
     'data-full-src',
+    'data-splide-lazy',
+    'data-flickity-lazyload',
   ],
-  lazySrcset: ['data-srcset', 'data-lazy-srcset', 'data-ll-srcset'],
+  lazySrcset: ['data-srcset', 'data-lazy-srcset', 'data-ll-srcset', 'data-splide-lazy-srcset', 'data-flickity-lazyload-srcset'],
   lazyBg: ['data-bg', 'data-background-image', 'data-bg-src', 'data-background'],
 };

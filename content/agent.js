@@ -15,16 +15,35 @@
   const A_FOCUS = 'data-p2p-focus'; // modal that holds the content, printed on its own
   const A_FRAME = 'data-p2p-frame'; // iframe resized to its content height
   const A_GRID = 'data-p2p-grid'; // grid whose rows were relaxed after hiding a child
+  const A_TRACK = 'data-p2p-track'; // carousel row laid out so every slide prints
+  const A_SLIDE = 'data-p2p-slide'; // carousel slide shown in place
+  const A_CAROUSEL_BOX = 'data-p2p-carousel-box'; // box around a carousel row, grown to fit every slide
   const NONE = '\u0000none';
 
   // Stylesheet !important beats inline styles that page scripts assign later
   // (el.style.opacity = '0' would replace an inline !important value).
+  // Carousel scripts keep moving the row and its slides on timers and resizes.
   const FORCE_CSS = `
     [${A_HIDE}], [${A_PICKED}] { display: none !important; }
     [${A_REVEAL}] { opacity: 1 !important; visibility: visible !important; }
     [${A_REVEAL}~="transform"] { transform: none !important; translate: none !important; }
     [${A_REVEAL}~="filter"] { filter: none !important; }
     [${A_FOCUS}]::backdrop { display: none !important; }
+    [${A_TRACK}] {
+      position: relative !important; inset: auto !important; transform: none !important; translate: none !important;
+      width: auto !important; max-width: 100% !important; height: auto !important; max-height: none !important;
+      overflow: visible !important; scroll-snap-type: none !important; transition: none !important;
+    }
+    [${A_TRACK}]::before, [${A_TRACK}]::after { display: none !important; }
+    [${A_CAROUSEL_BOX}] {
+      height: auto !important; max-height: none !important; aspect-ratio: auto !important;
+      overflow-y: visible !important; overflow-x: clip !important;
+    }
+    [${A_SLIDE}] {
+      position: relative !important; inset: auto !important; transform: none !important; translate: none !important;
+      opacity: 1 !important; visibility: visible !important; transition: none !important;
+    }
+    [${A_SLIDE}][hidden] { display: block !important; }
   `;
 
   const VH_PROPS = [
@@ -1168,6 +1187,198 @@
     return n;
   }
 
+  // ------------------------------------------------------------- carousels
+
+  // A carousel shows one slide and keeps the others beside it (clipped by the
+  // row's box), stacked under it, or hidden. In print only that slide comes out.
+  // Lay the slides out one after another instead, without the clones that
+  // looping carousels add and without the arrows and dots.
+  const STATE_CLASS = /active|current|selected|visible|hidden|clone|duplicate|prev|next|^(is|has)-/i;
+  const CLONE_CLASS = /clone|duplicate/i;
+  const CONTROL_CLASS =
+    /(^|[\s_-])(prev|previous|next|arrows?|dots?|bullets?|pagination|pager|indicators?|controls?|nav|counter|fraction|play|pause|autoplay|thumbs?)([\s_-]|$)/i;
+  const CONTROL_LABEL = /previous|next|slide|go to|play|pause/i;
+  const NOT_CAROUSEL = 'nav, [role="navigation"], [role="menu"], [role="menubar"], [role="tablist"], [role="listbox"]';
+  const TRACK_SEARCH_DEPTH = 6;
+
+  const classOf = (el) => (typeof el.className === 'string' ? el.className : el.getAttribute('class') || '');
+
+  // The largest group of children that look alike: same tag and a shared class
+  // that isn't a state like "active" (or no classes at all).
+  function alikeChildren(kids) {
+    const byTag = new Map();
+    for (const c of kids) byTag.set(c.tagName, [...(byTag.get(c.tagName) || []), c]);
+    const group = [...byTag.values()].reduce((a, b) => (b.length > a.length ? b : a));
+    if (group.length < 2) return null;
+    const tokens = group.map((c) => classOf(c).split(/\s+/).filter((t) => t && !STATE_CLASS.test(t)));
+    if (tokens.every((t) => !t.length)) return group;
+    return tokens[0].some((t) => tokens.every((ts) => ts.includes(t))) ? group : null;
+  }
+
+  // The nearest box that clips sideways; slides outside it don't show.
+  function clipBox(el) {
+    for (let a = el; a && a !== document.documentElement; a = parentOf(a)) {
+      if (getComputedStyle(a).overflowX !== 'visible') {
+        const r = a.getBoundingClientRect();
+        return { left: r.left, right: r.right };
+      }
+    }
+    return { left: 0, right: vw() };
+  }
+
+  function slideOffView(slide, box) {
+    if (slide.hasAttribute('hidden')) return true;
+    const cs = getComputedStyle(slide);
+    if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) < 0.1) return true;
+    const r = slide.getBoundingClientRect();
+    return r.width > 0 && (r.right <= box.left + 2 || r.left >= box.right - 2);
+  }
+
+  // `p` holds a carousel's slides when two or more children look alike, are big
+  // enough to be slides, and at least one of them is hidden or out of view.
+  function slideRow(p) {
+    const kids = layoutChildren(p).filter(
+      (c) => !/^(SCRIPT|STYLE|TEMPLATE|LINK|BR)$/.test(c.tagName) && !c.hasAttribute(A_HIDE) && !c.hasAttribute(A_PICKED),
+    );
+    if (kids.length < 2) return null;
+    let group = kids.filter((c) => /^slide$/i.test(c.getAttribute('aria-roledescription') || ''));
+    if (group.length < 2) group = alikeChildren(kids);
+    if (!group) return null;
+    const slides = group.filter((s) => !CLONE_CLASS.test(classOf(s)));
+    if (slides.length < 2) return null;
+    const shown = slides.filter((s) => s.getClientRects().length).map((s) => s.getBoundingClientRect());
+    if (!shown.length || Math.max(...shown.map((r) => r.width)) < 100 || Math.max(...shown.map((r) => r.height)) < 40) {
+      return null;
+    }
+    const box = clipBox(p);
+    if (!slides.some((s) => slideOffView(s, box)) || p.closest(NOT_CAROUSEL)) return null;
+    return { track: p, slides, clones: group.filter((s) => !slides.includes(s)) };
+  }
+
+  // The row with the most slides within a few levels of the carousel's root.
+  function findSlideRow(root, rows) {
+    let best = null;
+    const visit = (p, depth) => {
+      if (p.hasAttribute(A_HIDE) || p.hasAttribute(A_PICKED) || p.hasAttribute(A_TRACK) || p.hasAttribute('data-p2p-ui')) return;
+      if (!rows.has(p)) rows.set(p, slideRow(p));
+      const row = rows.get(p);
+      if (row && (!best || row.slides.length > best.slides.length)) best = row;
+      if (depth < TRACK_SEARCH_DEPTH) for (const c of p.children) visit(c, depth + 1);
+    };
+    visit(root, 0);
+    return best;
+  }
+
+  function unrollRow({ track, slides, clones }) {
+    ensureForceSheet();
+    for (const c of clones) hide(c, 'carousel-clone');
+    const shown = slides.find((s) => s.getClientRects().length);
+    const display = shown ? getComputedStyle(shown).display : 'block';
+    const width = Math.max(...slides.map((s) => s.getBoundingClientRect().width));
+    const height = Math.max(...slides.map((s) => s.getBoundingClientRect().height));
+    const cs = getComputedStyle(track);
+    const margin = Math.max(...slides.map((s) => parseFloat(getComputedStyle(s).marginRight) || 0));
+    const gap = Math.max(16, parseFloat(cs.columnGap) || 0, margin);
+    // Looping Swiper moves slides around in the DOM; keep them in slide order.
+    const order = slides.map((s) => s.getAttribute('data-swiper-slide-index'));
+    const ordered = order.every((v) => v !== null && /^\d+$/.test(v));
+    setAttr(track, A_TRACK, '');
+    setStyle(track, 'display', 'flex');
+    setStyle(track, 'flex-flow', 'row wrap');
+    setStyle(track, 'gap', `${gap}px`);
+    slides.forEach((s, i) => {
+      if (s.hasAttribute('hidden')) setAttr(s, 'hidden', null);
+      if (getComputedStyle(s).display === 'none') setStyle(s, 'display', display === 'none' ? 'block' : display);
+      setAttr(s, A_SLIDE, '');
+      setStyle(s, 'flex', '0 0 auto');
+      setStyle(s, 'box-sizing', 'border-box');
+      setStyle(s, 'width', `${width}px`);
+      setStyle(s, 'max-width', '100%');
+      setStyle(s, 'margin-left', '0px');
+      setStyle(s, 'margin-right', '0px');
+      if (ordered) setStyle(s, 'order', order[i]);
+    });
+    for (const s of slides) {
+      // A fixed height that the row's clipping used to hide would now spill
+      // into the next slide.
+      if (s.scrollHeight > s.clientHeight + 4) setStyle(s, 'height', 'auto');
+      // A slide sized as 100% of a fixed-height box collapses once that box
+      // grows to fit all the slides (hero banners with a background image).
+      if (s.getBoundingClientRect().height < height * 0.5) setStyle(s, 'min-height', `${height}px`);
+    }
+  }
+
+  // The carousel's own box. Arrows often sit just outside the root, so take the
+  // parent too while it adds no text or images of its own.
+  function carouselScope(track, root) {
+    let scope = root.contains(track) ? root : track;
+    const mediaSel = 'img, video, iframe, canvas, picture';
+    for (let i = 0; i < 3; i++) {
+      const p = parentOf(scope);
+      if (!p || p === document.body || p === document.documentElement || isProtected(p)) break;
+      const extraText = textLen(p) - textLen(scope);
+      const extraMedia = p.querySelectorAll(mediaSel).length - scope.querySelectorAll(mediaSel).length;
+      if (extraText > 40 || extraMedia > 0) break;
+      scope = p;
+    }
+    return scope;
+  }
+
+  function isCarouselControl(el) {
+    if (el.matches(SEL.carouselControls.join(',')) || CONTROL_CLASS.test(classOf(el))) return true;
+    if (!el.matches('button, [role="button"], [role="tab"], a')) return false;
+    const label = `${el.getAttribute('aria-label') || ''} ${el.getAttribute('title') || ''}`;
+    return CONTROL_LABEL.test(label) || (el.innerText || '').trim().length <= 3;
+  }
+
+  function hideCarouselControls(scope, track) {
+    const found = [];
+    for (const el of scope.querySelectorAll('*')) {
+      if (el.contains(track) || track.contains(el) || !rendered(el)) continue;
+      if (isCarouselControl(el)) found.push(el);
+    }
+    let n = 0;
+    for (const el of outermost(found)) if (canHide(el) && hide(el, 'carousel-controls')) n++;
+    return n;
+  }
+
+  // Roots come in document order, so an outer carousel is unrolled before the
+  // ones nested in its slides, and its scope is the outermost matching box.
+  function unrollCarousels() {
+    let carousels = 0;
+    let slides = 0;
+    let controls = 0;
+    // Roots nest (".carousel" holds ".carousel-slides" holds ".carousel-slide"),
+    // so the same elements come up from several roots.
+    const rows = new Map();
+    for (const root of deepQuery(SEL.carouselRoots.join(','))) {
+      if (root === document.body || root === document.documentElement || root.closest(UI) || !rendered(root)) continue;
+      if (root.closest(`[${A_HIDE}], [${A_PICKED}]`)) continue;
+      const row = findSlideRow(root, rows);
+      if (!row) continue;
+      unrollRow(row);
+      const scope = carouselScope(row.track, root);
+      controls += hideCarouselControls(scope, row.track);
+      // The slides are taller than the box that held one of them. Scripts reset
+      // that box's height on every slide change, so the stylesheet holds it.
+      for (let a = parentOf(row.track); a && a !== document.body && a !== document.documentElement; a = parentOf(a)) {
+        if (!isContents(a) && a.scrollHeight > a.clientHeight + 4) {
+          setAttr(a, A_CAROUSEL_BOX, '');
+          if (/^(absolute|fixed)$/.test(getComputedStyle(a).position)) {
+            setStyle(a, 'position', 'relative');
+            for (const p of ['top', 'left', 'right', 'bottom']) setStyle(a, p, 'auto');
+          }
+        }
+        if (a === scope) break;
+      }
+      unclipChain(parentOf(scope));
+      rows.clear(); // positions changed
+      carousels++;
+      slides += row.slides.length;
+    }
+    return { carousels, slides, controls };
+  }
+
   // Bottom of the last thing that actually shows: text, media, or a box with a
   // background or border. Padding and margins below it print as an empty page.
   function contentBottom() {
@@ -1379,14 +1590,25 @@
       }
     }
     // Framer Motion / GSAP leave inline opacity:0 plus a transform on content that
-    // scrolled out of view again.
+    // scrolled out of view again. Inside a carousel that's slide state, unless
+    // the slides were laid out to print: then it's a caption that animates in
+    // when its slide becomes current.
     const main = state.main || document.body;
     const skip = [...SEL.carousel, ...SEL.transient].join(',');
     let revealed = 0;
     for (const el of document.querySelectorAll('[style*="opacity"]')) {
       const s = el.style;
       if (s.opacity !== '0' || !(s.transform || s.translate || s.visibility || s.willChange || s.filter)) continue;
-      if (!main.contains(el) || el.closest(skip) || el.closest(UI)) continue;
+      if (!main.contains(el) || el.closest(UI)) continue;
+      const slide = el.closest(`[${A_SLIDE}]`);
+      if (slide) {
+        // Carousels mark slides that aren't current aria-hidden; only menus and
+        // tooltips inside the slide keep their hidden state.
+        const t = el.closest(SEL.transient.join(','));
+        if (t && t !== slide && slide.contains(t)) continue;
+      } else if (el.closest(skip)) {
+        continue;
+      }
       if (el.hasAttribute(A_HIDE) || el.hasAttribute(A_PICKED) || el.hasAttribute(A_REVEAL)) continue;
       const parts = [];
       if (s.transform || s.translate) parts.push('transform');
@@ -1499,6 +1721,7 @@
       for (const el of findFooter()) if (hide(el, 'footer')) n++;
       result.footer = n;
     }
+    result.carousels = unrollCarousels();
     result.expandedScroller = expandScroller();
     result.unclipped = unclipChain(state.main) + unclipScrollBoxes();
     result.pinned = neutralizePinned();

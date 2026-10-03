@@ -16,11 +16,12 @@ The quality gains come from preparing the page first:
 2. Remove popups and scroll locks, and switch lazy-loading images and iframes to load right away.
 3. Optionally scroll to the end, inside embedded frames first and then the page, waiting for network requests to settle after each step.
 4. Remove the chosen navigation, footer and popups, in each frame and on the page. Convert sticky and fixed elements so they print once instead of repeating. Let fixed-height panels and inner scroll areas grow so their whole content prints.
-5. Grow each embedded frame to its full content height, innermost first. If the content sits in a full-window dialog (a course or document player), print that dialog on its own and leave out the page behind it, with the lesson starting at the top of page 1.
-6. Chrome prints an embedded frame as one picture cut at every page break. Since the page height is known, the extension moves any image or text block that would straddle a break down to the next page inside the frame first.
-7. Pin every responsive image to its largest candidate and wait until all images and fonts have loaded.
-8. In print, `vh` units are measured against the paper height, which would make a full-screen hero section as tall as the whole PDF. The extension briefly emulates a viewport as tall as the paper, finds every style that changes, and pins it to its on-screen value.
-9. Print, then undo every change to the page and restore your scroll position.
+5. Lay out carousels so every slide prints. A carousel keeps the slides it isn't showing beside the current one (cut off by its box), stacked under it, or hidden. The extension finds the row of alike slides where at least one is out of view, wraps them into rows one after another in slide order, leaves out the copies that looping carousels add at both ends, and hides the arrows, dots and counters. The forced styles live in a stylesheet with `!important`, so autoplay timers and resize handlers can't move the slides back.
+6. Grow each embedded frame to its full content height, innermost first. If the content sits in a full-window dialog (a course or document player), print that dialog on its own and leave out the page behind it, with the lesson starting at the top of page 1.
+7. Chrome prints an embedded frame as one picture cut at every page break. Since the page height is known, the extension moves any image or text block that would straddle a break down to the next page inside the frame first.
+8. Pin every responsive image to its largest candidate and wait until all images and fonts have loaded.
+9. In print, `vh` units are measured against the paper height, which would make a full-screen hero section as tall as the whole PDF. The extension briefly emulates a viewport as tall as the paper, finds every style that changes, and pins it to its on-screen value.
+10. Print, then undo every change to the page and restore your scroll position.
 
 ## Limitations
 
@@ -28,6 +29,7 @@ The quality gains come from preparing the page first:
 - Elements with a CSS `filter`, `backdrop-filter` or blurred shadow are rasterized at 300 DPI by Chrome's PDF engine. Do-nothing filters such as `brightness(1)` are removed automatically, and so are filters and shadows on boxes taller than two screens, where they would turn into huge images.
 - Virtualized feeds that remove off-screen items (X, Slack, Gmail) only include what is rendered when the PDF is made.
 - Videos print as their current frame. Course content hidden behind "Continue" buttons only prints after you've clicked through it.
+- Carousels that only add a slide to the page when you move to it (instead of keeping every slide in the page) print just the slide that's showing.
 - Horizontally scrolling code blocks and tables only print their visible part.
 - Pages with many PNG, WebP or AVIF images produce large files, because those pixels are stored losslessly.
 - Chrome blocks extensions on `chrome://` pages, the Chrome Web Store and other extensions' pages. If the tab is already showing a PDF, the popup offers to download the original file.

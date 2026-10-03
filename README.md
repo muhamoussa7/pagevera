@@ -10,6 +10,7 @@ Chrome can already save a page as a PDF, but only through the print dialog, and 
 
 - Headers, sidebars, cookie banners and chat bubbles print on top of the content or repeat on every page.
 - Images that only load as you scroll come out blank or blurry.
+- Carousels and slideshows print only the slide that happens to be showing.
 - Images and slides get cut in half at page breaks, and some PDFs start with a blank page.
 - Lessons and documents shown inside embedded players are cut off at the edge of the player's window.
 
@@ -24,6 +25,7 @@ People who keep web content to read later, annotate or archive: students saving 
 - Lets you click any element on the page to leave it out, with a preview of what the automatic removal will take.
 - Scrolls to the end first, so images that load on scroll and infinite feeds are included.
 - Keeps text selectable and searchable, keeps links clickable, and embeds images at their original resolution.
+- Prints every slide of a carousel, slideshow or image gallery one after another, without the arrows and dots.
 - Uses normal paper pages (Letter or A4 depending on your region) and keeps images and slides whole at page breaks. One long page is also available.
 - Works inside embedded course players and document viewers, including ones loaded from other sites.
 - Names the file after the page, or after the lesson inside a course player. If Chrome asks where to save, its dialog opens in the last folder you used.
@@ -61,21 +63,24 @@ I tested each version on the real pages I needed it for and turned what broke in
 | 3 | A PDF that was one big blank page | Hiding an empty outline column collapsed the lesson to zero width | Fixed the layout step and added a check that no page is empty |
 | 4 | Error entries on Chrome's extensions page | A normal refusal was logged as an error, and the popup lost its connection when Chrome paused the extension after 30 idle seconds | Expected refusals are no longer logged, and the popup reconnects on its own |
 | 5 | Every lesson got the same file name, and the save dialog always opened in the default folder | The page title names the module rather than the lesson, and Chrome sends extension-named downloads to the default folder | Files are named after the lesson heading, and saves go through Chrome's normal download path so it remembers the folder |
+| 6 | A lesson's image carousel came out as its first image only | The other slides sat beside the first one, cut off by the carousel's box and marked hidden, and the last two images never loaded | Carousels are laid out so every slide prints in order, loop copies and arrows are left out, and every slide's image loads |
 
 ## How quality is checked
 
-The original requirements became automated tests: 48 in total, 29 of which load the extension in a real Chrome and inspect the PDFs it produces. They cover these requirements:
+The original requirements became automated tests: 50 in total, 31 of which load the extension in a real Chrome and inspect the PDFs it produces. They cover these requirements:
 
 - Text is real text. Fonts are embedded and the page text can be extracted from the PDF.
 - Images keep their quality. Each embedded image has its source's full resolution, and JPEG files are embedded byte for byte.
 - Removal works. Navigation, cookie banner and chat text is missing from the PDF while the article text is there.
 - The whole page loads. The last batch of an infinite feed makes it into the PDF.
 - Page breaks are clean, with no blank pages and no slide split across two pages.
+- Carousels print every slide once, in order, with each slide's image and without arrows or dots.
 
 ## Limitations
 
 - Apps that draw on a canvas, such as Google Docs, Sheets and Figma, come out as images rather than text.
 - Feeds that unload items as you scroll past them, such as X, Slack and Gmail, only include what's on screen.
+- Carousels that only add a slide to the page when you move to it print just the slide that's showing.
 - Chrome shows its "started debugging" bar for a few seconds during each save.
 
 The full list is in [How it works](docs/how-it-works.md#limitations).

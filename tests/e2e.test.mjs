@@ -208,6 +208,59 @@ describe('layout', () => {
   });
 });
 
+describe('carousels', () => {
+  test('every slide prints once, in slide order, without clones, arrows or dots', async () => {
+    const { page, file, text, res } = await savePdf('carousels.html', { scrollToEnd: false });
+    const count = (t) => text.split(t).length - 1;
+    for (const t of ['RISECAP', 'SLICK', 'FADE', 'SWIPE'].flatMap((p) => [1, 2, 3, 4].map((i) => `${p}${i}`))) {
+      if (t.endsWith('4') && !t.startsWith('RISE')) continue;
+      assert.equal(count(t), 1, `${t} printed once`);
+    }
+    assert.ok(text.includes('SLCAPTION'), 'a caption that animates in with its slide is visible');
+    for (const t of ['RDOT', 'RPREV', 'RNEXT', 'SLPREV', 'SLNEXT', 'SLDOT', 'FDOT', 'FPREV', 'FNEXT', 'SWDOT', 'SWPREV', 'SWNEXT']) {
+      assert.ok(!text.includes(t), `${t} left out`);
+    }
+    const y = (t) => word(file, t).y0;
+    for (const p of ['RISECAP', 'SLICK', 'FADE', 'SWIPE']) {
+      assert.ok(y(`${p}1`) < y(`${p}2`) && y(`${p}2`) < y(`${p}3`), `${p} slides one after another in slide order`);
+    }
+    assert.ok(y('SWIPE2') - y('SWIPE1') > 300, 'full-height hero slides keep their height');
+    assert.ok(y('FADE1') - y('SLICK3') > 300, 'the box that held one Slick slide grew to fit all of them');
+    assert.ok(Math.abs(y('CHIP0') - y('CHIP1')) < 2, 'a sideways row of small chips is left alone');
+    assert.ok(text.includes('CAROEND'));
+
+    const dims = pdfimages(file)
+      .filter((i) => i.type === 'image')
+      .map((i) => `${i.width}x${i.height}`);
+    const n = (d) => dims.filter((x) => x === d).length;
+    assert.equal(n('1600x1066'), 4, 'every Rise slide image, including the lazy ones');
+    assert.equal(n('800x500'), 3, 'Slick slide images, clones left out');
+    assert.equal(n('800x533'), 3, 'Bootstrap slide images');
+    assert.equal(n('1200x750'), 3, 'Swiper background images');
+    assert.equal(res.report.layout.carousels.carousels, 4);
+    await page.close();
+  });
+
+  test('carousels are put back after saving', async () => {
+    const page = await openPage(h, `${origin}/carousels.html`);
+    const snap = () =>
+      page.evaluate(() => {
+        const els = document.querySelectorAll(
+          '.carousel-controls, .carousel-slides, .carousel-slide, .carousel-inner, .carousel-item, .carousel-indicators, .swiper, .swiper-wrapper, .swiper-slide, .swiper-button-prev',
+        );
+        // Undo writes styles back through CSSOM (a strict CSP blocks the style
+        // attribute), which normalizes their text, so compare cssText.
+        return [...els].map((e) => [e.className, e.style.cssText, e.hasAttribute('hidden'), getComputedStyle(e).display]);
+      });
+    const before = await snap();
+    await save(h, { scrollToEnd: false });
+    assert.deepEqual(await snap(), before);
+    const marks = `${MARKS},[data-p2p-track],[data-p2p-slide],[data-p2p-carousel-box]`;
+    assert.equal(await page.evaluate((m) => document.querySelectorAll(m).length, marks), 0);
+    await page.close();
+  });
+});
+
 describe('embedded course player (LMS with cross-origin iframes)', () => {
   async function saveLms(query) {
     const page = await openPage(h, `${origin}/lms-course.html${query}`);
@@ -237,6 +290,10 @@ describe('embedded course player (LMS with cross-origin iframes)', () => {
     assert.ok(res.report.frameExpansion.some((e) => e.to > 6000), 'lesson frame grown to its content height');
     const lazy = pdfimages(file).filter((i) => i.width === 2000 && i.height === 1500);
     assert.equal(lazy.length, 5, 'lazy images inside the frame loaded at full size');
+    for (let i = 1; i <= 4; i++) assert.ok(text.includes(`RISEGALLERY${i}`), `gallery slide ${i} printed`);
+    assert.ok(!/GALLERY(DOT|PREV|NEXT)/.test(text), "gallery's arrows and dots left out");
+    const gallery = pdfimages(file).filter((i) => i.width === 800 && i.height === 500);
+    assert.equal(gallery.length, 4, 'every gallery image printed, including the lazy ones');
     assert.equal(res.filename, 'RISETITLE Finding Outliers.pdf', 'named after the lesson, not the module');
     await page.close();
   });
