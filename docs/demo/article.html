@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How to write a one-page product brief - The Product Desk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --ink: #1d2433; --muted: #5b6475; --line: #e3e6ec; --accent: #3b5bdb; --soft: #f5f7fb; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font: 17px/1.65 Georgia, 'Times New Roman', serif; color: var(--ink); background: #fff; }
+  .site-header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 32px; height: 64px; padding: 0 32px;
+    background: #fff; border-bottom: 1px solid var(--line); font: 15px/1 system-ui, -apple-system, sans-serif; }
+  .logo { font-weight: 700; font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: -0.2px; }
+  .logo span { color: var(--accent); }
+  .site-header nav { display: flex; gap: 22px; }
+  .site-header nav a { color: var(--muted); text-decoration: none; }
+  .site-header .cta { margin-left: auto; background: var(--accent); color: #fff; border: 0; border-radius: 6px; padding: 10px 16px; font: inherit; font-weight: 600; }
+  .layout { display: grid; grid-template-columns: 260px minmax(0, 720px); gap: 56px; max-width: 1100px; margin: 0 auto; padding: 40px 32px; }
+  .sidebar { position: sticky; top: 104px; align-self: start; font: 14px/1.5 system-ui, -apple-system, sans-serif; }
+  .sidebar h4 { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .sidebar ul { list-style: none; margin: 0 0 28px; padding: 0; }
+  .sidebar li a { display: block; padding: 6px 10px; border-left: 2px solid var(--line); color: var(--ink); text-decoration: none; }
+  .sidebar li a.on { border-color: var(--accent); color: var(--accent); background: var(--soft); }
+  article .kicker { font: 600 13px/1 system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  article h1 { font-size: 42px; line-height: 1.15; margin: 12px 0 14px; letter-spacing: -0.5px; }
+  .byline { font: 14px/1.4 system-ui, sans-serif; color: var(--muted); margin-bottom: 28px; }
+  figure { margin: 28px 0; }
+  figure svg { display: block; width: 100%; height: auto; border-radius: 10px; }
+  figcaption { font: 13px/1.5 system-ui, sans-serif; color: var(--muted); margin-top: 8px; }
+  h2 { font-size: 26px; margin: 36px 0 8px; letter-spacing: -0.2px; }
+  table { width: 100%; border-collapse: collapse; font: 15px/1.5 system-ui, sans-serif; margin: 20px 0; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--soft); font-weight: 600; }
+  blockquote { margin: 24px 0; padding: 4px 20px; border-left: 3px solid var(--accent); color: var(--muted); font-style: italic; }
+  .site-footer { border-top: 1px solid var(--line); padding: 32px; text-align: center; font: 14px system-ui, sans-serif; color: var(--muted); }
+  .cookie-banner { position: fixed; left: 24px; right: 24px; bottom: 24px; z-index: 20; display: flex; align-items: center; gap: 20px;
+    padding: 18px 22px; background: #1d2433; color: #fff; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,.25); font: 15px/1.5 system-ui, sans-serif; }
+  .cookie-banner p { margin: 0; flex: 1; }
+  .cookie-banner button { border: 0; border-radius: 6px; padding: 10px 16px; font: 600 14px system-ui, sans-serif; }
+  .cookie-banner .accept { background: #fff; color: #1d2433; }
+  .cookie-banner .reject { background: transparent; color: #fff; border: 1px solid #fff6; }
+  .intercom-launcher { position: fixed; right: 28px; bottom: 112px; z-index: 21; width: 56px; height: 56px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 6px 20px rgba(59,91,219,.45); display: grid; place-items: center; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="logo" href="#">The Product <span>Desk</span></a>
+  <nav><a href="#">Articles</a><a href="#">Guides</a><a href="#">Templates</a><a href="#">Podcast</a></nav>
+  <button class="cta">Subscribe</button>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>In this guide</h4>
+    <ul>
+      <li><a class="on" href="#why">Why one page</a></li>
+      <li><a href="#sections">The five sections</a></li>
+      <li><a href="#metrics">Choosing a success metric</a></li>
+      <li><a href="#review">Getting it reviewed</a></li>
+    </ul>
+    <h4>Popular</h4>
+    <ul>
+      <li><a href="#">Running a pricing test</a></li>
+      <li><a href="#">Interview notes that get read</a></li>
+      <li><a href="#">Roadmaps without dates</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <div class="kicker">Guide</div>
+    <h1>How to write a one-page product brief</h1>
+    <div class="byline">Demo page for Page to PDF · 6 min read</div>
+
+    <figure>
+      <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A brief on a desk">
+        <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbe4ff"/><stop offset="1" stop-color="#f3f0ff"/></linearGradient></defs>
+        <rect width="720" height="300" fill="url(#bg)"/>
+        <circle cx="610" cy="70" r="90" fill="#bac8ff" opacity=".5"/>
+        <circle cx="90" cy="260" r="120" fill="#d0bfff" opacity=".45"/>
+        <rect x="250" y="38" width="220" height="250" rx="10" fill="#fff" stroke="#c5cdea"/>
+        <rect x="274" y="64" width="120" height="12" rx="6" fill="#3b5bdb"/>
+        <rect x="274" y="92" width="172" height="8" rx="4" fill="#d6dbe8"/>
+        <rect x="274" y="108" width="150" height="8" rx="4" fill="#d6dbe8"/>
+        <rect x="274" y="136" width="90" height="10" rx="5" fill="#7048e8"/>
+        <rect x="274" y="156" width="172" height="8" rx="4" fill="#d6dbe8"/>
+        <rect x="274" y="172" width="160" height="8" rx="4" fill="#d6dbe8"/>
+        <rect x="274" y="200" width="100" height="10" rx="5" fill="#0ca678"/>
+        <rect x="274" y="220" width="172" height="8" rx="4" fill="#d6dbe8"/>
+        <rect x="274" y="236" width="128" height="8" rx="4" fill="#d6dbe8"/>
+        <rect x="480" y="150" width="120" height="96" rx="10" fill="#fff" stroke="#c5cdea"/>
+        <rect x="496" y="214" width="16" height="20" fill="#bac8ff"/><rect x="520" y="196" width="16" height="38" fill="#91a7ff"/>
+        <rect x="544" y="178" width="16" height="56" fill="#5c7cfa"/><rect x="568" y="166" width="16" height="68" fill="#3b5bdb"/>
+      </svg>
+      <figcaption>A brief that fits on one page gets read before the meeting, not during it.</figcaption>
+    </figure>
+
+    <h2 id="why">Why one page</h2>
+    <p>A product brief exists to get a team to agree on what problem is worth solving before anyone designs a solution. Long documents hide that decision under detail. A single page forces you to say who has the problem, how you know, and what result would tell you the work paid off.</p>
+    <p>Keep the brief separate from the spec. The brief is for deciding whether to build; the spec is for deciding how. Mixing them invites a debate about button colors when the real question is whether the feature should exist.</p>
+
+    <h2 id="sections">The five sections</h2>
+    <table>
+      <tr><th>Section</th><th>The question it answers</th></tr>
+      <tr><td>Problem</td><td>Who is stuck, and what does it cost them today?</td></tr>
+      <tr><td>Evidence</td><td>What did we see in interviews, tickets or data?</td></tr>
+      <tr><td>Proposal</td><td>What are we betting on, in one paragraph?</td></tr>
+      <tr><td>Success metric</td><td>Which number moves if this works, and by how much?</td></tr>
+      <tr><td>Open questions</td><td>What would change our mind?</td></tr>
+    </table>
+
+    <h2 id="metrics">Choosing a success metric</h2>
+    <p>Pick one number the team can watch weekly. If the honest answer is that nothing measurable will change, the brief has done its job by surfacing that early.</p>
+    <figure>
+      <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weekly activation rate chart">
+        <rect width="720" height="260" fill="#f5f7fb"/>
+        <g stroke="#e3e6ec"><line x1="60" y1="40" x2="690" y2="40"/><line x1="60" y1="100" x2="690" y2="100"/><line x1="60" y1="160" x2="690" y2="160"/><line x1="60" y1="220" x2="690" y2="220"/></g>
+        <g font-family="system-ui, sans-serif" font-size="12" fill="#5b6475"><text x="20" y="44">60%</text><text x="20" y="104">40%</text><text x="20" y="164">20%</text><text x="28" y="224">0%</text></g>
+        <polyline fill="none" stroke="#adb5bd" stroke-width="3" points="80,170 160,166 240,168 320,160"/>
+        <polyline fill="none" stroke="#3b5bdb" stroke-width="3" points="320,160 400,138 480,120 560,104 640,92"/>
+        <line x1="320" y1="30" x2="320" y2="220" stroke="#7048e8" stroke-dasharray="4 4"/>
+        <text x="328" y="48" font-family="system-ui, sans-serif" font-size="13" fill="#7048e8">Launch</text>
+      </svg>
+      <figcaption>Illustration: an activation metric watched week by week around a launch.</figcaption>
+    </figure>
+
+    <h2 id="review">Getting it reviewed</h2>
+    <p>Send the brief a day ahead and ask each reviewer for one risk they see. Collect the answers under open questions. When the meeting starts, the discussion is already about the hard parts.</p>
+    <blockquote>If a reviewer can't restate the problem after reading the brief, rewrite the problem section first.</blockquote>
+  </article>
+</div>
+
+<footer class="site-footer">The Product Desk is a demo site made for this project.</footer>
+
+<div class="cookie-banner" id="cookie-banner">
+  <p>We use cookies to understand how readers use the site. You can accept or reject them.</p>
+  <button class="reject">Reject</button><button class="accept">Accept all</button>
+</div>
+<div class="intercom-launcher" aria-label="Chat">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M4 4h16v12H8l-4 4z"/></svg>
+</div>
+</body>
+</html>

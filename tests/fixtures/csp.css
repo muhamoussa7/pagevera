@@ -1,0 +1,5 @@
+@page { margin: 3cm; }
+body{margin:0;font:16px/1.6 system-ui,sans-serif}
+.top{position:sticky;top:0;background:#111;color:#fff;padding:14px 20px;display:flex;gap:16px}
+.top a{color:#ddd}
+main{max-width:760px;margin:0 auto;padding:20px}

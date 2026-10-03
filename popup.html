@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Page to PDF</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <img src="icons/icon32.png" width="20" height="20" alt="" />
+      <span class="brand">Page to PDF</span>
+      <span class="shortcut" id="shortcut" title="Keyboard shortcut"></span>
+    </header>
+
+    <section class="actions">
+      <button id="save" class="primary">Save as PDF</button>
+      <button id="pick" class="secondary">Pick what to remove first…</button>
+
+      <div id="status" class="status" hidden>
+        <div class="track"><div class="fill"></div></div>
+        <div class="status-row">
+          <span class="msg" id="msg"></span>
+          <button id="cancel" class="link" hidden>Cancel</button>
+        </div>
+        <div class="detail" id="detail"></div>
+        <button id="copy-details" class="link small" hidden>Copy details</button>
+      </div>
+
+      <div id="notice" class="notice" hidden>
+        <span id="notice-text"></span>
+        <button id="notice-action" class="link" hidden></button>
+      </div>
+    </section>
+
+    <form id="options">
+      <fieldset>
+        <legend>Remove</legend>
+        <label class="check"><input type="checkbox" name="removeTopNav" /> Top navigation and header</label>
+        <label class="check"><input type="checkbox" name="removeSideNav" /> Side navigation and sidebars</label>
+        <label class="check"><input type="checkbox" name="removePopups" /> Popups, cookie banners, chat widgets</label>
+        <label class="check"><input type="checkbox" name="removeFooter" /> Footer</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Before saving</legend>
+        <label class="check"><input type="checkbox" name="scrollToEnd" /> Scroll to the end so everything loads</label>
+        <label class="sub">Stop after <input type="number" name="scrollMaxSeconds" min="5" max="600" step="5" /> seconds</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Layout</legend>
+        <div class="segmented" role="radiogroup">
+          <label><input type="radio" name="layout" value="paged" /><span>Pages</span></label>
+          <label><input type="radio" name="layout" value="continuous" /><span>One long page</span></label>
+        </div>
+        <div class="paged" id="paged">
+          <select name="paper" aria-label="Paper size">
+            <option value="auto">Auto size</option>
+            <option value="a4">A4</option>
+            <option value="letter">Letter</option>
+            <option value="legal">Legal</option>
+          </select>
+          <select name="orientation" aria-label="Orientation">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+          <select name="margins" aria-label="Margins">
+            <option value="none">No margins</option>
+            <option value="small">Small margins</option>
+            <option value="normal">Normal margins</option>
+          </select>
+        </div>
+        <p class="help" id="layout-help"></p>
+      </fieldset>
+
+      <details>
+        <summary>Quality</summary>
+        <label class="check"><input type="checkbox" name="highResImages" /> Load the highest-resolution images</label>
+        <label class="sub">
+          Render at
+          <select name="dpr">
+            <option value="1">1×</option>
+            <option value="2">2×</option>
+            <option value="3">3×</option>
+          </select>
+          pixel density
+        </label>
+        <label class="check"><input type="checkbox" name="screenStyles" /> Keep the on-screen look (ignore print styles)</label>
+        <label class="check"><input type="checkbox" name="reducedMotion" /> Stop animations so nothing is caught mid-fade</label>
+        <label class="check"><input type="checkbox" name="tagged" /> Add bookmarks and accessibility tags</label>
+      </details>
+
+      <details>
+        <summary>Saving</summary>
+        <label class="check"><input type="checkbox" name="askWhere" /> Ask where to save each file</label>
+        <label class="sub">Downloads subfolder <input type="text" name="subfolder" placeholder="none" spellcheck="false" /></label>
+      </details>
+    </form>
+
+    <footer>Chrome shows a "started debugging" bar for a few seconds while the PDF is made.</footer>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

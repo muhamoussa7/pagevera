@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Endless feed</title>
+<style>body{margin:0 auto;max-width:800px;font:16px system-ui,sans-serif;padding:20px}.item{height:400px;border-bottom:1px solid #ddd}</style>
+</head><body><h1>MAINTITLE Endless</h1><div id="list"></div><div id="sentinel" style="height:10px"></div>
+<script>
+const list=document.getElementById('list');let n=0;
+function add(){for(let i=0;i<5;i++){const d=document.createElement('div');d.className='item';d.textContent='Endless item '+(n++)+' with enough text to count as content in the feed.';list.appendChild(d)}}
+add();new IntersectionObserver(e=>{if(e[0].isIntersecting)setTimeout(add,100)},{rootMargin:'400px'}).observe(document.getElementById('sentinel'));
+</script></body></html>

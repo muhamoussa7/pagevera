@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Images fixture</title>
+<style>
+body{margin:0 auto;max-width:1000px;font:16px/1.5 system-ui,sans-serif;padding:20px}
+img{display:block;max-width:100%;height:auto;margin:8px 0}
+.bg{width:500px;height:250px;background-image:image-set(url(img/bg@1x.jpg) 1x, url(img/bg@2x.jpg) 2x);background-size:cover}
+.idfilter{filter:brightness(1)}
+.blur{filter:blur(2px)}
+</style></head><body>
+<h1>MAINTITLE Images</h1>
+<p>MAINTOK JPEG 4000x3000 shown at 800px</p><img id="big" src="img/big.jpg" width="800" height="600" alt="">
+<p>PNG with alpha</p><img id="alpha" src="img/alpha.png" width="400" height="300" alt="">
+<p>WebP</p><img id="webp" src="img/photo.webp" width="600" height="400" alt="">
+<p>srcset with w descriptors</p><img id="srcw" src="img/photo-400.jpg" srcset="img/photo-400.jpg 400w, img/photo-800.jpg 800w, img/photo-1600.jpg 1600w, img/photo-3200.jpg 3200w" sizes="600px" width="600" height="400" alt="">
+<p>srcset with x descriptors</p><img id="srcx" src="img/icon@1x.png" srcset="img/icon@1x.png 1x, img/icon@2x.png 2x, img/icon@3x.png 3x" width="200" height="200" alt="">
+<p>picture with webp sources</p><picture><source type="image/webp" srcset="img/pic-1200.webp 1200w, img/pic-2400.webp 2400w" sizes="500px"><img id="pic" src="img/pic-800.jpg" width="500" height="312" alt=""></picture>
+<p>image-set background</p><div class="bg"></div>
+<p>lazy data-src</p><img id="lazy" class="lazyload" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/lazy.jpg" width="600" height="450" alt="">
+<p>low-quality placeholder</p><img id="lqip" src="img/lazy-lqip.jpg" data-src="img/lazy.jpg?lqip" style="width:600px;height:450px" alt="">
+<div class="idfilter"><img id="idf" src="img/photo-1600.jpg?idf" width="400" height="267" alt=""><p>IDFTEXT selectable text inside an identity filter</p></div>
+<div class="blur"><img id="blurimg" src="img/photo-800.jpg?blur" width="400" height="267" alt=""></div>
+<div style="height:3000px"></div>
+<p>native lazy image far below</p><img id="native" loading="lazy" src="img/photo.webp?native" width="600" height="400" alt="">
+<p>IMGEND</p>
+</body></html>

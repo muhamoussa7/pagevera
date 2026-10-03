@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Infinite feed</title>
+<style>body{margin:0 auto;max-width:800px;font:16px/1.5 system-ui,sans-serif;padding:20px}.item{height:180px;border-bottom:1px solid #ddd;padding:10px;box-sizing:border-box}</style>
+</head><body>
+<h1>MAINTITLE Feed</h1><div id="list"></div><div id="sentinel" style="height:10px"></div><p id="end" hidden>LASTTOK end of feed</p>
+<script>
+const list=document.getElementById('list');let n=0,loading=false;
+const reveal=new IntersectionObserver(es=>{for(const e of es){e.target.style.opacity=e.isIntersecting?'1':'0';e.target.style.transform=e.isIntersecting?'none':'translateY(40px)'}});
+function render(items){for(const t of items){const d=document.createElement('div');d.className='item';d.innerHTML='<p>'+t+' with some longer text so it is a real paragraph of content.</p>';d.style.opacity='0';d.style.transform='translateY(40px)';list.appendChild(d);reveal.observe(d)}}
+async function load(){if(n>=6){document.getElementById('end').hidden=false;io.disconnect();return}const r=await fetch('/api/batch?n='+n);const j=await r.json();render(j.items);n++;loading=false}
+const io=new IntersectionObserver(e=>{if(e[0].isIntersecting&&!loading){loading=true;load()}},{rootMargin:'200px'});
+render(['Initial item A','Initial item B']);io.observe(document.getElementById('sentinel'));
+</script></body></html>

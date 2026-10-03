@@ -1,0 +1,209 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Finding Outliers</title>
+<style>
+html,body{margin:0;font:17px/1.65 system-ui,sans-serif;color:#222}
+.nav-sidebar{position:fixed;top:0;left:0;bottom:0;width:265px;overflow-y:auto;background:#f2f2f2}
+.nav-sidebar .cover{background:#222;color:#fff;padding:24px 20px}
+.nav-sidebar ul{list-style:none;margin:0;padding:0}
+.nav-sidebar li{padding:22px 18px;border-bottom:1px solid #ddd}
+.nav-menu-btn{position:fixed;top:12px;left:280px;width:28px;height:28px;background:#fff;border:1px solid #ccc;z-index:3}
+.page-wrap{margin-left:265px;box-shadow:0 0 60px rgba(0,0,0,.3);border-radius:12px}
+.lesson-header{background:#e6e6e6;padding:28px 190px}
+.lesson-header h1{margin:0;font-size:26px}
+.blocks{max-width:760px;margin:0 auto;padding:30px 20px}
+.block{opacity:0;transform:translateY(30px);transition:opacity .4s,transform .4s;margin:0 0 28px}
+.block.visible{opacity:1;transform:none}
+img{display:block;width:100%;height:auto}
+</style></head><body>
+<nav class="nav-sidebar"><div class="cover"><h2>RISESIDE Cleaning Data</h2><div>100% COMPLETE</div></div>
+<ul><li><a href="#l0">Sidebar lesson 0</a></li><li><a href="#l1">Sidebar lesson 1</a></li><li><a href="#l2">Sidebar lesson 2</a></li><li><a href="#l3">Sidebar lesson 3</a></li><li><a href="#l4">Sidebar lesson 4</a></li><li><a href="#l5">Sidebar lesson 5</a></li><li><a href="#l6">Sidebar lesson 6</a></li><li><a href="#l7">Sidebar lesson 7</a></li><li><a href="#l8">Sidebar lesson 8</a></li><li><a href="#l9">Sidebar lesson 9</a></li><li><a href="#l10">Sidebar lesson 10</a></li><li><a href="#l11">Sidebar lesson 11</a></li><li><a href="#l12">Sidebar lesson 12</a></li><li><a href="#l13">Sidebar lesson 13</a></li></ul></nav>
+<button class="nav-menu-btn" aria-label="Menu">☰</button>
+<div class="page-wrap">
+<header class="lesson-header"><h1>RISETITLE Finding Outliers</h1></header>
+<div class="blocks">
+<div class="block"><p>RISETOK first block of the lesson.</p></div>
+<div class="block"><p>RISEBODY paragraph 1. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 2. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 3. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 4. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 5. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide5" width="2000" height="1500" alt=""><div class="cap">SLIDE5</div></div>
+<div class="block"><p>RISEBODY paragraph 6. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 7. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 8. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 9. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 10. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide10" width="2000" height="1500" alt=""><div class="cap">SLIDE10</div></div>
+<div class="block"><p>RISEBODY paragraph 11. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 12. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 13. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 14. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 15. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide15" width="2000" height="1500" alt=""><div class="cap">SLIDE15</div></div>
+<div class="block"><p>RISEBODY paragraph 16. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 17. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 18. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 19. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 20. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide20" width="2000" height="1500" alt=""><div class="cap">SLIDE20</div></div>
+<div class="block"><p>RISEBODY paragraph 21. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 22. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 23. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 24. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 25. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide25" width="2000" height="1500" alt=""><div class="cap">SLIDE25</div></div>
+<div class="block"><p>RISEBODY paragraph 26. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 27. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 28. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 29. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 30. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide30" width="2000" height="1500" alt=""><div class="cap">SLIDE30</div></div>
+<div class="block"><p>RISEBODY paragraph 31. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 32. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 33. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 34. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 35. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide35" width="2000" height="1500" alt=""><div class="cap">SLIDE35</div></div>
+<div class="block"><p>RISEBODY paragraph 36. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 37. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 38. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 39. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 40. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide40" width="2000" height="1500" alt=""><div class="cap">SLIDE40</div></div>
+<div class="block"><p>RISEBODY paragraph 41. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 42. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 43. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 44. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 45. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide45" width="2000" height="1500" alt=""><div class="cap">SLIDE45</div></div>
+<div class="block"><p>RISEBODY paragraph 46. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 47. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 48. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 49. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 50. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide50" width="2000" height="1500" alt=""><div class="cap">SLIDE50</div></div>
+<div class="block"><p>RISEBODY paragraph 51. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 52. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 53. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 54. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 55. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide55" width="2000" height="1500" alt=""><div class="cap">SLIDE55</div></div>
+<div class="block"><p>RISEBODY paragraph 56. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 57. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 58. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 59. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 60. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide60" width="2000" height="1500" alt=""><div class="cap">SLIDE60</div></div>
+<div class="block"><p>RISEBODY paragraph 61. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 62. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 63. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 64. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 65. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide65" width="2000" height="1500" alt=""><div class="cap">SLIDE65</div></div>
+<div class="block"><p>RISEBODY paragraph 66. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 67. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 68. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 69. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 70. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide70" width="2000" height="1500" alt=""><div class="cap">SLIDE70</div></div>
+<div class="block"><p>RISEBODY paragraph 71. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 72. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 73. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 74. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 75. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide75" width="2000" height="1500" alt=""><div class="cap">SLIDE75</div></div>
+<div class="block"><p>RISEBODY paragraph 76. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 77. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 78. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 79. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 80. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide80" width="2000" height="1500" alt=""><div class="cap">SLIDE80</div></div>
+<div class="block"><p>RISEBODY paragraph 81. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 82. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 83. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 84. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 85. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide85" width="2000" height="1500" alt=""><div class="cap">SLIDE85</div></div>
+<div class="block"><p>RISEBODY paragraph 86. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 87. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 88. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 89. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 90. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide90" width="2000" height="1500" alt=""><div class="cap">SLIDE90</div></div>
+<div class="block"><p>RISEBODY paragraph 91. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 92. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 93. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 94. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 95. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide95" width="2000" height="1500" alt=""><div class="cap">SLIDE95</div></div>
+<div class="block"><p>RISEBODY paragraph 96. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 97. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 98. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 99. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 100. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide100" width="2000" height="1500" alt=""><div class="cap">SLIDE100</div></div>
+<div class="block"><p>RISEBODY paragraph 101. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 102. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 103. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 104. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 105. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide105" width="2000" height="1500" alt=""><div class="cap">SLIDE105</div></div>
+<div class="block"><p>RISEBODY paragraph 106. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 107. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 108. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 109. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 110. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide110" width="2000" height="1500" alt=""><div class="cap">SLIDE110</div></div>
+<div class="block"><p>RISEBODY paragraph 111. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 112. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 113. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 114. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 115. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide115" width="2000" height="1500" alt=""><div class="cap">SLIDE115</div></div>
+<div class="block"><p>RISEBODY paragraph 116. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 117. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 118. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 119. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 120. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide120" width="2000" height="1500" alt=""><div class="cap">SLIDE120</div></div>
+<div class="block"><p>RISEBODY paragraph 121. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 122. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 123. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 124. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 125. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide125" width="2000" height="1500" alt=""><div class="cap">SLIDE125</div></div>
+<div class="block"><p>RISEBODY paragraph 126. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 127. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 128. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 129. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 130. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide130" width="2000" height="1500" alt=""><div class="cap">SLIDE130</div></div>
+<div class="block"><p>RISEBODY paragraph 131. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 132. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 133. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 134. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 135. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide135" width="2000" height="1500" alt=""><div class="cap">SLIDE135</div></div>
+<div class="block"><p>RISEBODY paragraph 136. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 137. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 138. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 139. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 140. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide140" width="2000" height="1500" alt=""><div class="cap">SLIDE140</div></div>
+<div class="block"><p>RISEBODY paragraph 141. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 142. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 143. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 144. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 145. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide145" width="2000" height="1500" alt=""><div class="cap">SLIDE145</div></div>
+<div class="block"><p>RISEBODY paragraph 146. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 147. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 148. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 149. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block"><p>RISEBODY paragraph 150. Clean data starts with knowing where it came from. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
+<div class="block slide"><img data-src="img/lazy.jpg?slide150" width="2000" height="1500" alt=""><div class="cap">SLIDE150</div></div>
+<div class="block"><p>RISEEND last block of the lesson.</p></div>
+</div></div>
+<script>
+const io = new IntersectionObserver((es) => { for (const e of es) if (e.isIntersecting) { e.target.classList.add('visible'); const img = e.target.querySelector('img[data-src]'); if (img) { img.src = img.dataset.src; img.removeAttribute('data-src'); } io.unobserve(e.target); } });
+document.querySelectorAll('.block').forEach((b) => io.observe(b));
+</script></body></html>

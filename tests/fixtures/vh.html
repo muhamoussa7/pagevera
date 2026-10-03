@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Viewport units</title>
+<style>
+body{margin:0;font:16px/1.5 system-ui,sans-serif}
+.wrap{min-height:100vh;display:flex;flex-direction:column}
+.hero{height:100vh;background:#1e293b;color:#fff;display:flex;align-items:flex-end;padding:20px;box-sizing:border-box}
+.half{height:max(600px,50vh);background:#e2e8f0}
+.big{font-size:5vh;margin:0}
+#js{background:#fde68a}
+.tall-only{display:none}
+@media (min-height:1200px){.tall-only{display:block;height:2000px;background:red}}
+footer{margin-top:auto;padding:20px;background:#cbd5e1}
+</style></head><body>
+<div class="wrap">
+<div class="hero"><span>HEROTOP hero bottom</span></div>
+<p>AFTERHERO this line sits right below the hero</p>
+<div class="half">HALFTOK</div>
+<p class="big">BIGTEXT</p>
+<div id="js">JSTOK</div>
+<div class="tall-only">TALLONLY</div>
+<footer>VHFOOT</footer>
+</div>
+<script>const js=document.getElementById('js');function f(){js.style.height=innerHeight*0.5+'px'}f();addEventListener('resize',f);</script>
+</body></html>
