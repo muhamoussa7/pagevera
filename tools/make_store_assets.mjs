@@ -1,5 +1,5 @@
-// Builds the Chrome Web Store images in store/: three 1280x800 screenshots and
-// a 440x280 promo tile. Reuses docs/images and a real Markdown save of docs/demo/article.html.
+// Builds the Chrome Web Store images in store/: three 1280x800 screenshots, a
+// 440x280 promo tile and a 1400x560 marquee tile. Reuses docs/images and a real Markdown save of docs/demo/article.html.
 // Usage: node tools/make_store_assets.mjs (needs Python 3 with Pillow, to drop the alpha channel)
 
 import { execFileSync } from 'node:child_process';
@@ -54,6 +54,12 @@ try {
       <div style="display:flex;gap:28px;padding:50px 40px 0;align-items:flex-start">
         <div class="card" style="flex:1.25"><img src="data:image/png;base64,${pagePng}" style="display:block;width:100%"></div>
         <pre class="card" style="flex:1;height:452px;margin:0;padding:22px;font:16px/1.5 ui-monospace,Menlo,monospace;white-space:pre-wrap;word-break:break-word;overflow:hidden">${esc(md)}</pre></div>` },
+    'promo-marquee.png': { w: 1400, h: 560, html: `<div style="height:560px;display:flex;align-items:center;gap:56px;padding:0 70px">
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:18px"><img src="data:image/png;base64,${await b64('icons/icon128.png')}" width="72" height="72">
+        <div style="font-size:52px;font-weight:700">PageVera</div></div>
+        <div style="font-size:30px;line-height:1.3;margin-top:22px;font-weight:600">Save any page as a clean PDF, PNG or Markdown file</div>
+        <div style="font-size:22px;line-height:1.4;margin-top:12px;color:#4a5568">One click, no print dialog. Menus, sidebars and cookie banners stay out.</div></div>
+      <div class="card" style="width:600px"><img src="data:image/png;base64,${await b64('docs/images/before-after.png')}" style="display:block;width:100%"></div></div>` },
     'promo-small.png': { w: 440, h: 280, html: `<div style="height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px">
       <img src="data:image/png;base64,${await b64('icons/icon128.png')}" width="84" height="84">
       <div style="font-size:38px;font-weight:700;margin-top:10px">PageVera</div>
