@@ -3,12 +3,14 @@
 
 const port = chrome.runtime.connect({ name: 'offscreen' });
 const parts = new Map(); // id -> Uint8Array[]
+const mimes = new Map(); // id -> MIME type of the file being built
 const urls = new Map(); // id -> blob URL
 
 port.onMessage.addListener((msg) => {
   switch (msg.type) {
     case 'begin':
       parts.set(msg.id, []);
+      mimes.set(msg.id, msg.mime || 'application/pdf');
       break;
     case 'chunk':
       parts.get(msg.id)?.push(decode(msg.data));
@@ -20,7 +22,8 @@ port.onMessage.addListener((msg) => {
         reply({ id: msg.id, error: 'Unknown PDF id' });
         break;
       }
-      const blob = new Blob(chunks, { type: 'application/pdf' });
+      const blob = new Blob(chunks, { type: mimes.get(msg.id) || 'application/pdf' });
+      mimes.delete(msg.id);
       const url = URL.createObjectURL(blob);
       urls.set(msg.id, url);
       reply({ id: msg.id, url, size: blob.size });
@@ -43,6 +46,7 @@ port.onMessage.addListener((msg) => {
     }
     case 'discard':
       parts.delete(msg.id);
+      mimes.delete(msg.id);
       break;
     case 'revoke': {
       const url = urls.get(msg.id);

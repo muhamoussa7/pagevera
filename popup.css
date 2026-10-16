@@ -271,6 +271,10 @@ input[type='text'] {
   padding: 3px;
 }
 
+.segmented.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .segmented input {
   position: absolute;
   opacity: 0;

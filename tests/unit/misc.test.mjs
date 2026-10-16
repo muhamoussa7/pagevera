@@ -11,6 +11,9 @@ test('sanitizeFilename removes illegal characters and caps length', () => {
   assert.equal(sanitizeFilename('a/b\\c*d?e"f<g>h|i'), 'a b c d e f g h i.pdf');
   assert.equal(sanitizeFilename('  ...hidden.  '), 'hidden.pdf');
   assert.equal(sanitizeFilename('CON'), '_CON.pdf');
+  assert.equal(sanitizeFilename('Lesson', 'https://x.test/', undefined, 'png'), 'Lesson.png');
+  assert.equal(normalize({ format: 'md' }).format, 'md');
+  assert.equal(normalize({ format: 'docx' }).format, 'pdf');
   const long = sanitizeFilename('x'.repeat(400));
   assert.equal(long, `${'x'.repeat(150)}.pdf`);
   assert.equal(sanitizeFilename('日本語のタイトル 🎉'), '日本語のタイトル 🎉.pdf');

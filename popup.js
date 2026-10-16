@@ -28,6 +28,7 @@ async function init() {
   if (tab?.id != null) send({ type: 'hello', tabId: tab.id });
 
   form.addEventListener('change', onFormChange);
+  $('#format').addEventListener('change', onFormChange); // outside the form element
   saveBtn.addEventListener('click', () => send({ type: 'save', tabId: tab.id }));
   pickBtn.addEventListener('click', () => {
     send({ type: 'pick', tabId: tab.id });
@@ -161,6 +162,10 @@ async function onFormChange(e) {
 }
 
 function syncDependent(s) {
+  $('#layout-fieldset').hidden = s.format !== 'pdf';
+  for (const el of form.querySelectorAll('[data-formats]')) el.hidden = !el.dataset.formats.split(' ').includes(s.format);
+  $('#highres-label').textContent = s.format === 'md' ? 'Link to the highest-resolution images' : 'Load the highest-resolution images';
+  saveBtn.textContent = { pdf: 'Save as PDF', png: 'Save as PNG', md: 'Save as Markdown' }[s.format];
   $('#paged').hidden = s.layout !== 'paged';
   $('#layout-help').textContent =
     s.layout === 'paged'

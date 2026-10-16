@@ -364,6 +364,34 @@ describe('scroll to end', () => {
   });
 });
 
+describe('PNG image', () => {
+  test('saves one PNG of the page at screen width and pixel ratio, then restores the page', async () => {
+    const page = await openPage(h, `${origin}/layout-docs.html`);
+    const cssW = await page.evaluate(() => innerWidth);
+    const { buf, res } = await save(h, { format: 'png', scrollToEnd: false, dpr: 2 });
+    assert.deepEqual([...buf.subarray(1, 4)], [0x50, 0x4e, 0x47], 'PNG signature');
+    assert.equal(buf.readUInt32BE(16), cssW * 2, 'width in device pixels');
+    const marks = await page.evaluate((m) => document.querySelectorAll(m).length, MARKS);
+    assert.equal(marks, 0);
+    await page.close();
+  });
+});
+
+describe('Markdown', () => {
+  test('keeps the article as Markdown without the navigation, then restores the page', async () => {
+    const page = await openPage(h, `${origin}/layout-docs.html`);
+    const { buf, res } = await save(h, { format: 'md', scrollToEnd: false });
+    const md = buf.toString('utf8');
+    assert.match(md, /^# MAINTITLE Docs page$/m);
+    assert.ok(md.includes('MAINTOK paragraph 0'));
+    assert.ok(!md.includes('NAVTOK') && !md.includes('SIDETOK'), 'navigation is left out');
+    assert.ok(res.filename.endsWith('.md'), res.filename);
+    const marks = await page.evaluate((m) => document.querySelectorAll(m).length, MARKS);
+    assert.equal(marks, 0);
+    await page.close();
+  });
+});
+
 describe('page state', () => {
   test('page is restored after saving', async () => {
     const page = await openPage(h, `${origin}/layout-docs.html`);
