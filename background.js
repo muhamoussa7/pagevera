@@ -12,8 +12,8 @@ const pickerTabs = new Set();
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.removeAll(() => {
     const contexts = ['page', 'selection', 'link', 'image', 'video', 'frame'];
-    chrome.contextMenus.create({ id: 'save-pdf', title: 'Save page as PDF', contexts });
-    chrome.contextMenus.create({ id: 'pick-and-save', title: 'Save page as PDF, picking what to remove…', contexts });
+    chrome.contextMenus.create({ id: 'save-pdf', title: 'Save page with PageVera', contexts });
+    chrome.contextMenus.create({ id: 'pick-and-save', title: 'Save page with PageVera, picking what to remove…', contexts });
   });
 });
 

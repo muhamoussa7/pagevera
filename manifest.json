@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PageVera",
   "version": "1.0.0",
-  "description": "Save any page as a vector PDF in one click. Text stays text, images keep full resolution, with options to remove navigation and load the whole page first.",
+  "description": "Save any page as a clean PDF, PNG or Markdown file in one click. Removes menus and popups. No print dialog.",
   "minimum_chrome_version": "125",
   "permissions": [
     "debugger",
@@ -18,7 +18,7 @@
     "type": "module"
   },
   "action": {
-    "default_title": "Save page as PDF",
+    "default_title": "Save this page",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
@@ -36,10 +36,10 @@
   "commands": {
     "save-pdf": {
       "suggested_key": { "default": "Alt+Shift+P" },
-      "description": "Save the current page as PDF"
+      "description": "Save the current page"
     },
     "pick-and-save": {
-      "description": "Pick elements to remove, then save as PDF"
+      "description": "Pick elements to remove, then save"
     }
   }
 }

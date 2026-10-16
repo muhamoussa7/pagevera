@@ -112,7 +112,7 @@ Then click the toolbar button and choose **Save as PDF**.
 <img src="docs/images/popup.png" width="340" alt="The extension's popup, with the Save as PDF button and options for what to remove, scrolling and page layout">
 
 - Press **Alt+Shift+P** (⌥⇧P on a Mac) to save without opening the popup. Change it at `chrome://extensions/shortcuts`.
-- Right-click a page and choose **Save page as PDF**.
+- Right-click a page and choose **Save page with PageVera**. It uses the format you last picked in the popup.
 - **Pick what to remove first…** puts a toolbar on the page. Hover to highlight an element, click to remove it, ↑/↓ to select the parent or child, Backspace or ⌘Z to undo, Enter to save, Esc to cancel. **Show automatic removals** outlines what the Remove toggles would take out; click an outline to keep that element. After saving, the removed elements stay hidden until you click **Restore page** or reload, so you can adjust and save again.
 
 While a PDF is being made, Chrome shows a "PageVera started debugging this browser" bar for a few seconds. It disappears when the save finishes. Clicking its Cancel button stops the save. To hide the bar permanently, start Chrome with `--silent-debugger-extension-api`.
